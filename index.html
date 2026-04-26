@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hidden Morocco - اكتشف المغرب</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='95' fill='white' stroke='black' stroke-width='3'/%3E%3Ctext x='100' y='110' font-size='24' font-weight='bold' text-anchor='middle' fill='black'%3EHM%3C/text%3E%3Cpath d='M 50 150 Q 100 180 150 150' stroke='black' stroke-width='2' fill='none'/%3E%3C/svg%3E" alt="Hidden Morocco" class="logo-img">
+                <span class="logo-text" id="logoText">Hidden Morocco</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" onclick="setLanguage('ar')" class="lang-btn">العربية</a></li>
+                <li><a href="#home" onclick="setLanguage('en')" class="lang-btn">English</a></li>
+                <li><a href="#home" onclick="setLanguage('fr')" class="lang-btn">Français</a></li>
+                <li><a href="#features" id="navFeatures">الخصائص</a></li>
+                <li><a href="#museums" id="navMuseums">المتاحف</a></li>
+                <li><a href="#" id="loginBtn" class="login-btn">دخول</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Modal Login/Register -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="auth-container">
+                <div class="auth-toggle">
+                    <button class="auth-tab active" id="loginTab" onclick="showLogin()">دخول</button>
+                    <button class="auth-tab" id="registerTab" onclick="showRegister()">تسجيل</button>
+                </div>
+                
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form active">
+                    <input type="email" placeholder="البريد الإلكتروني" required>
+                    <input type="password" placeholder="كلمة المرور" required>
+                    <button type="submit" class="btn-primary">دخول</button>
+                </form>
+                
+                <!-- Register Form -->
+                <form id="registerForm" class="auth-form">
+                    <input type="text" placeholder="الاسم الكامل" required>
+                    <input type="email" placeholder="البريد الإلكتروني" required>
+                    <input type="password" placeholder="كلمة المرور" required>
+                    <input type="password" placeholder="تأكيد كلمة المرور" required>
+                    <button type="submit" class="btn-primary">تسجيل</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 id="heroTitle">اكتشف جمال المغرب الخفي</h1>
+            <p id="heroSubtitle">زر أكثر من 450 متحف وموقع أثري في المغرب</p>
+            <a href="#museums" class="btn-primary" id="heroBtn">ابدأ الاستكشاف</a>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1552520514-5fefe8c9ef14?w=600&h=400&fit=crop" alt="Morocco">
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2 id="featuresTitle">الخصائص الرئيسية</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3 id="feature1Title">خريطة GPS</h3>
+                <p id="feature1Desc">حدد موقع كل متحف على الخريطة</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-image"></i>
+                <h3 id="feature2Title">صور عالية الجودة</h3>
+                <p id="feature2Desc">شاهد صور من الداخل والخارج</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-ticket-alt"></i>
+                <h3 id="feature3Title">أسعار الدخول</h3>
+                <p id="feature3Desc">معلومات كاملة عن رسوم الدخول</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-history"></i>
+                <h3 id="feature4Title">معلومات تاريخية</h3>
+                <p id="feature4Desc">تاريخ التأسيس والمؤسسين</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-globe"></i>
+                <h3 id="feature5Title">متعدد اللغات</h3>
+                <p id="feature5Desc">العربية والإنجليزية والفرنسية</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-file-pdf"></i>
+                <h3 id="feature6Title">تحميل PDF</h3>
+                <p id="feature6Desc">حمل معلومات المتاحف كـ PDF</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Museums Section -->
+    <section class="museums" id="museums">
+        <h2 id="museumsTitle">المتاحف والمواقع الأثرية</h2>
+        <div class="filter-section">
+            <input type="text" id="searchInput" placeholder="ابحث عن متحف..." class="search-box">
+            <select id="cityFilter" class="filter-select">
+                <option value="">جميع المدن</option>
+                <option value="فاس">فاس</option>
+                <option value="مراكش">مراكش</option>
+                <option value="الرباط">الرباط</option>
+                <option value="طنجة">طنجة</option>
+                <option value="تطوان">تطوان</option>
+            </select>
+        </div>
+        <div class="museums-grid" id="museumsGrid">
+            <!-- سيتم ملؤها من قاعدة البيانات -->
+        </div>
+    </section>
+
+    <!-- Museum Detail Modal -->
+    <div id="museumModal" class="modal">
+        <div class="modal-content museum-detail">
+            <span class="close">&times;</span>
+            <div id="museumDetailContent">
+                <!-- سيتم ملؤها من قاعدة البيانات -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4 id="footerAbout">عن Hidden Morocco</h4>
+                    <p id="footerDesc">منصة شاملة لاستكشاف المتاحف والمواقع الأثرية في المغرب</p>
+                </div>
+                <div class="footer-section">
+                    <h4 id="footerContact">اتصل بنا</h4>
+                    <p>البريد: nabilseddiki01@gmail.com</p>
+                    <p id="footerPhone">الهاتف: +212 6 XX XX XX XX</p>
+                </div>
+                <div class="footer-section">
+                    <h4 id="footerFollow">تابعنا</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p id="footerCopy">&copy; 2024 Hidden Morocco. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

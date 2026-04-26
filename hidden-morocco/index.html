@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hidden Morocco - اكتشف المتاحف والمواقع الأثرية</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://leaflet.js.org/examples/html/styles.css" />
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <i class="fas fa-pyramid"></i>
+                    <span>Hidden Morocco</span>
+                </div>
+                <div class="nav-menu">
+                    <a href="#home" class="nav-link active">الرئيسية</a>
+                    <a href="#features" class="nav-link">المميزات</a>
+                    <a href="#museums" class="nav-link">المتاحف</a>
+                    <a href="#contact" class="nav-link">اتصل بنا</a>
+                    <div class="language-selector">
+                        <button onclick="changeLanguage('ar')" class="lang-btn">العربية</button>
+                        <button onclick="changeLanguage('en')" class="lang-btn">English</button>
+                        <button onclick="changeLanguage('fr')" class="lang-btn">Français</button>
+                    </div>
+                    <button class="auth-btn" onclick="openAuthModal()">تسجيل الدخول</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>اكتشف Hidden Morocco</h1>
+            <p>استكشف أكثر من 450 متحف وموقع أثري في المغرب بمعلومات دقيقة وموثوقة</p>
+            <button class="cta-btn" onclick="scrollToSection('museums')">ابدأ الاستكشاف</button>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2>المميزات</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>خريطة تفاعلية</h3>
+                    <p>حدد موقع المتاحف على خريطة GPS دقيقة</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-camera"></i>
+                    <h3>صور عالية الجودة</h3>
+                    <p>صور من داخل وخارج كل متحف وموقع أثري</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-info-circle"></i>
+                    <h3>معلومات شاملة</h3>
+                    <p>تاريخ التأسيس والمؤسس وأسباب البناء والتفاصيل الكاملة</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-dollar-sign"></i>
+                    <h3>أسعار الدخول</h3>
+                    <p>أسعار الدخول لجميع الفئات والأوقات المجانية</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-globe"></i>
+                    <h3>متعدد اللغات</h3>
+                    <p>واجهة بـ العربية والإنجليزية والفرنسية</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-download"></i>
+                    <h3>تحميل PDF</h3>
+                    <p>حمل معلومات المتاحف في ملف PDF شامل</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Museums Section -->
+    <section id="museums" class="museums">
+        <div class="container">
+            <h2>استكشف المتاحف والمواقع الأثرية</h2>
+            <div class="search-filters">
+                <input type="text" id="searchInput" placeholder="ابحث عن متحف..." class="search-box">
+                <select id="cityFilter" class="filter-select">
+                    <option value="">جميع المدن</option>
+                    <option value="fez">فاس</option>
+                    <option value="marrakech">مراكش</option>
+                    <option value="casablanca">الدار البيضاء</option>
+                    <option value="tangier">طنجة</option>
+                    <option value="rabat">الرباط</option>
+                    <option value="meknes">مكناس</option>
+                </select>
+            </div>
+            <div class="museums-grid" id="museumsGrid">
+                <!-- سيتم ملء المتاحف هنا بواسطة JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Authentication Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAuthModal()">&times;</span>
+            <div class="auth-tabs">
+                <button class="tab-btn active" onclick="switchTab('login')">تسجيل الدخول</button>
+                <button class="tab-btn" onclick="switchTab('register')">إنشاء حساب</button>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="loginForm" class="auth-form active">
+                <h3>تسجيل الدخول</h3>
+                <input type="email" placeholder="البريد الإلكتروني" required>
+                <input type="password" placeholder="كلمة المرور" required>
+                <button type="submit" class="submit-btn">دخول</button>
+                <p class="auth-note">هل أنت جديد؟ <a href="#" onclick="switchTab('register')">إنشاء حساب</a></p>
+            </form>
+
+            <!-- Register Form -->
+            <form id="registerForm" class="auth-form">
+                <h3>إنشاء حساب جديد</h3>
+                <input type="text" placeholder="الاسم الكامل" required>
+                <input type="email" placeholder="البريد الإلكتروني" required>
+                <input type="password" placeholder="كلمة المرور" required>
+                <input type="password" placeholder="تأكيد كلمة المرور" required>
+                <button type="submit" class="submit-btn">إنشاء حساب</button>
+                <p class="auth-note">لديك حساب بالفعل؟ <a href="#" onclick="switchTab('login')">تسجيل الدخول</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>اتصل بنا</h2>
+            <form class="contact-form">
+                <input type="text" placeholder="اسمك الكامل" required>
+                <input type="email" placeholder="بريدك الإلكتروني" required>
+                <textarea placeholder="رسالتك..." rows="5" required></textarea>
+                <button type="submit" class="submit-btn">إرسال</button>
+            </form>
+            <div class="contact-info">
+                <p><i class="fas fa-envelope"></i> nabilseddiki01@gmail.com</p>
+                <p><i class="fas fa-globe"></i> الموقع: المغرب</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Hidden Morocco. جميع الحقوق محفوظة.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
